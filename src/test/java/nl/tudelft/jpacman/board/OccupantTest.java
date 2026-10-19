@@ -6,20 +6,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test suite to confirm that {@link Unit}s correctly (de)occupy squares.
- *
- * @author Jeroen Roosen 
- *
+ * Tests whether units correctly occupy squares.
  */
 class OccupantTest {
 
-    /**
-     * The unit under test.
-     */
     private Unit unit;
 
     /**
-     * Resets the unit under test.
+     * Creates a new unit before each test.
      */
     @BeforeEach
     void setUp() {
@@ -27,31 +21,41 @@ class OccupantTest {
     }
 
     /**
-     * Asserts that a unit has no square to start with.
+     * Tests that a new unit has no square.
      */
     @Test
     void noStartSquare() {
-        // Remove the following placeholder:
-        assertThat(unit).isNotNull();
+        assertThat(unit.hasSquare()).isFalse();
     }
 
     /**
-     * Tests that the unit indeed has the target square as its base after
-     * occupation.
+     * Tests occupation of a square.
      */
     @Test
     void testOccupy() {
-        // Remove the following placeholder:
-        assertThat(unit).isNotNull();
+        Square square = new BasicSquare();
+
+        unit.occupy(square);
+
+        assertThat(unit.hasSquare()).isTrue();
+        assertThat(unit.getSquare()).isSameAs(square);
+        assertThat(square.getOccupants()).contains(unit);
     }
 
     /**
-     * Test that the unit indeed has the target square as its base after
-     * double occupation.
+     * Tests movement from one square to another.
      */
     @Test
     void testReoccupy() {
-        // Remove the following placeholder:
-        assertThat(unit).isNotNull();
+        Square firstSquare = new BasicSquare();
+        Square secondSquare = new BasicSquare();
+
+        unit.occupy(firstSquare);
+        unit.occupy(secondSquare);
+
+        assertThat(unit.hasSquare()).isTrue();
+        assertThat(unit.getSquare()).isSameAs(secondSquare);
+        assertThat(secondSquare.getOccupants()).contains(unit);
+        assertThat(firstSquare.getOccupants()).doesNotContain(unit);
     }
 }
