@@ -34,4 +34,37 @@ class BoardTest {
             .isInstanceOf(AssertionError.class)
             .hasMessage("Initial grid cannot contain null squares");
     }
+    /**
+     * Tests positions inside the board.
+     */
+    @Test
+    void testWithinBordersInside() {
+        Square[][] grid = {
+            {new BasicSquare(), new BasicSquare()},
+            {new BasicSquare(), new BasicSquare()}
+        };
+        Board board = new Board(grid);
+
+        assertThat(board.withinBorders(0, 0)).isTrue();
+        assertThat(board.withinBorders(1, 0)).isTrue();
+        assertThat(board.withinBorders(0, 1)).isTrue();
+        assertThat(board.withinBorders(1, 1)).isTrue();
+    }
+
+    /**
+     * Tests positions outside each board boundary.
+     */
+    @Test
+    void testWithinBordersOutside() {
+        Square[][] grid = {
+            {new BasicSquare(), new BasicSquare()},
+            {new BasicSquare(), new BasicSquare()}
+        };
+        Board board = new Board(grid);
+
+        assertThat(board.withinBorders(-1, 0)).isFalse();
+        assertThat(board.withinBorders(2, 0)).isFalse();
+        assertThat(board.withinBorders(0, -1)).isFalse();
+        assertThat(board.withinBorders(0, 2)).isFalse();
+    }
 }
